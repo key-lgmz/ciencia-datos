@@ -4,15 +4,15 @@ import streamlit as st
 
 st.title('Uber pickups in NYC')
 DATE_COLUMN = 'date/time'
-DATA_URL = ('/content/uber_dataset.csv')
+DATA_URL = ("https://raw.githubusercontent.com/adsoftsito/ciencia-de-datos/refs/heads/main/uber.csv")
+@st.cache_data
 
-@st.cache
 def load_data(nrows):
-data = pd.read_csv(DATA_URL, nrows=nrows)
-lowercase = lambda x: str(x).lower()
-data.rename(lowercase, axis='columns', inplace=True)
-data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
-return data
+ data = pd.read_csv(DATA_URL, nrows=nrows)
+ lowercase = lambda x: str(x).lower()
+ data.rename(lowercase, axis='columns', inplace=True)
+ data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
+ return data
 
 data_load_state = st.text('Loading data...')
 data = load_data(1000)
